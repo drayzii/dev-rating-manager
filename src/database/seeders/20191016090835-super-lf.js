@@ -11,6 +11,23 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        firstName: 'Jonathan',
+        lastName: 'Aurugai',
+        email: 'jonathan@gmail.com',
+        role: 'Engineer',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        firstName: 'Titus',
+        lastName: 'Thumbi',
+        email: 'tito@gmail.com',
+        role: 'Engineer',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+
     ],
     {},
   ),
