@@ -15,4 +15,4 @@ class EngineerService {
     }
   }
 }
-export default new EngineerService();
+export default EngineerService;

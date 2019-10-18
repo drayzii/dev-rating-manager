@@ -4,12 +4,12 @@ export default {
     'Groups',
     [
       {
-        lf: 2,
+        lf: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        lf: 3,
+        lf: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

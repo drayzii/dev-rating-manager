@@ -55,11 +55,7 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Rating, {
       foreignKey: 'user',
     });
-<<<<<<< HEAD
     User.hasMany(models.Group, {
-=======
-    User.hasMany(models.Groups, {
->>>>>>> chore(database): database setup (#1)
       foreignKey: 'lf',
     });
   };
