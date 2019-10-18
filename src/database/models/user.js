@@ -3,6 +3,9 @@
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    googleId: {
+      type: DataTypes.STRING,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -21,10 +24,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: true,
-        is: ['^[\w.+\-]+@andela\.com$'],
-      },
     },
     role: {
       type: DataTypes.STRING,

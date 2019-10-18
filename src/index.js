@@ -1,17 +1,23 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import session from 'express-session';
 import cors from 'cors';
+import Passport from './routes/userRoutes';
 import routes from './routes/index';
 
 const app = express();
+const { passport } = Passport;
 
 app.enable('trust proxy');
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
   res.status(200).json({
@@ -20,7 +26,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/api/v1',routes);
+app.use('/api/v1', routes);
 
 // / catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -34,8 +40,8 @@ app.use((err, req, res, next) => {
   res.json({
     errors: {
       message: err.message,
-      error: {}
-    }
+      error: {},
+    },
   });
 });
 
