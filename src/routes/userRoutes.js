@@ -5,6 +5,8 @@ import AuthController from '../controllers/authController';
 import UserController from '../controllers/userController';
 import Authenticate from '../middlewares/auth';
 
+const { viewAllProfiles } = UserController;
+
 const router = express.Router();
 const { loginCallback } = AuthController;
 const { updateRole } = UserController;
@@ -36,5 +38,8 @@ router.get('/auth/google/redirect',
   loginCallback);
 
 router.patch('/make-lf', Authenticate, updateRole);
+
+
+router.get('/', Authenticate, viewAllProfiles);
 
 export default { router, passport };
