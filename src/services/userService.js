@@ -22,11 +22,19 @@ class UserService {
   }
 
   /**
+<<<<<<< HEAD
    * Creates a new message.
    * @param {object} param details of a message.
    * @returns {object} users new message.
    */
   static async findOneUser(param) {
+=======
+   * Creates returns a user.
+   * @param {object} param details of a message.
+   * @returns {object} users new message.
+   */
+  static async find(param) {
+>>>>>>> refix controller
     try {
       const users = await User.findOne({
         where: param,
@@ -36,6 +44,7 @@ class UserService {
       throw error;
     }
   }
+<<<<<<< HEAD
 
   /**
    * Creates a new message.
@@ -69,6 +78,8 @@ class UserService {
       throw error;
     }
   }
+=======
+>>>>>>> refix controller
 }
 
 export default UserService;

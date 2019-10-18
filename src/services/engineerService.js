@@ -6,7 +6,9 @@ const { Group } = database;
 class EngineerService {
   static async addEngineers(list, params) {
     try {
-      return await Group.update(list, {
+      return await Group.update({
+        engineers: list,
+      }, {
         returning: true,
         where: params,
       });
