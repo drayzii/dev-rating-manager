@@ -32,10 +32,30 @@ class UserService {
       attributes: {
         exclude: ['password'],
       },
-      where: { [Op.not]: [{ role: 'Super LF' }] },
+      where: { role: 'Engineer' },
     });
 
     return users;
+  }
+
+  /**
+   * Get user by id
+   * @param {string}  params be checked against
+   * @return {object} Oject of request if found
+   */
+  static async getSingleEngineer(params) {
+    try {
+      const user = await database.User.findOne({
+        attributes: {
+          exclude: ['password'],
+        },
+        where: params,
+      });
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
