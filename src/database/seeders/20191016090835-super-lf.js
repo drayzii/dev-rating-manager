@@ -27,6 +27,14 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        firstName: 'Wiliam',
+        lastName: 'Vedastus',
+        email: 'willy@gmail.com',
+        role: 'Engineer',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
 
     ],
     {},

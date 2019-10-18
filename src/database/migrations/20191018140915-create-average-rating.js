@@ -1,7 +1,6 @@
-'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Ratings', {
+    return queryInterface.createTable('AverageRatings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,30 +9,27 @@ module.exports = {
       },
       user: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'user',
-        },
+      },
+      submitter: {
+        type: Sequelize.INTEGER,
       },
       quality: {
-        type: Sequelize.JSONB,
+        type: Sequelize.DECIMAL,
       },
       quantity: {
-        type: Sequelize.JSONB,
+        type: Sequelize.DECIMAL,
       },
       initiative: {
-        type: Sequelize.JSONB,
+        type: Sequelize.DECIMAL,
+      },
+      proffesionalisim: {
+        type: Sequelize.DECIMAL,
       },
       communication: {
-        type: Sequelize.JSONB,
+        type: Sequelize.DECIMAL,
       },
-      professionalism: {
-        type: Sequelize.JSONB,
-      },
-      integration: {
-        type: Sequelize.JSONB,
+      averageRating: {
+        type: Sequelize.DECIMAL,
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +42,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Ratings');
+    return queryInterface.dropTable('AverageRatings');
   },
 };
