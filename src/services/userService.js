@@ -1,7 +1,10 @@
 /* eslint-disable no-useless-catch */
+import Sequelize from 'sequelize';
 import database from '../database/models';
 
 const { User } = database;
+const { Op } = Sequelize;
+
 /** Class representing user services. */
 
 class UserService {
@@ -19,6 +22,20 @@ class UserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  /**
+   * @returns {*} users
+   */
+  static async getAllEngineers() {
+    const users = await database.User.findAll({
+      attributes: {
+        exclude: ['password'],
+      },
+      where: { [Op.not]: [{ role: 'Super LF' }] },
+    });
+
+    return users;
   }
 }
 
