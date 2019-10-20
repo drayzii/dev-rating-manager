@@ -22,10 +22,13 @@ module.exports = {
       initiative: {
         type: Sequelize.DECIMAL,
       },
-      proffesionalisim: {
+      professionalism: {
         type: Sequelize.DECIMAL,
       },
       communication: {
+        type: Sequelize.DECIMAL,
+      },
+      integration: {
         type: Sequelize.DECIMAL,
       },
       averageRating: {

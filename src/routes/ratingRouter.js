@@ -6,8 +6,11 @@ import ratingController from '../controllers/ratingController';
 
 const router = express.Router();
 
-router.post('/',ratingValidator.validateCreate, ratingController.createRatings);
-router.patch('/:id',ratingValidator.validateCreate, ratingController.createRatings);
+router.post('/rate/',ratingValidator.validateCreate, ratingController.createRatings);
+router.patch('/rate/:id',ratingValidator.validateUpdate, ratingController.updateRating);
+router.get('/rate', ratingController.getAllRatings);
+router.get('/', ratingController.getAllEngineerRatings);
+router.get('/:id', ratingController.getEngineerRating);
 
 
 export default router;

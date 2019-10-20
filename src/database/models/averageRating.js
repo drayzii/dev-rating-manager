@@ -1,18 +1,18 @@
 
 module.exports = (sequelize, DataTypes) => {
-  const AverageRating = sequelize.define('average_rating', {
+  const AverageRatings = sequelize.define('AverageRatings', {
     user: DataTypes.INTEGER,
     submitter: DataTypes.INTEGER,
     quality: DataTypes.DECIMAL,
     quantity: DataTypes.DECIMAL,
     initiative: DataTypes.DECIMAL,
-    proffesionalisim: DataTypes.DECIMAL,
+    professionalism: DataTypes.DECIMAL,
     communication: DataTypes.DECIMAL,
     integration: DataTypes.DECIMAL,
     averageRating: DataTypes.DECIMAL,
   }, {});
-  AverageRating.associate = (models) => {
+  AverageRatings.associate = (models) => {
     // associations can be defined here
   };
-  return AverageRating;
+  return AverageRatings;
 };
