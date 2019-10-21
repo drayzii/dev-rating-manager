@@ -105,7 +105,21 @@ class Response {
       error: 'Bad Request',
     });
   }
+
+  /**
+     * Retuns a server error response
+     * @param {object} res  details.
+     * @param {string} message  details.
+     * @param {object} data  details.
+     * @returns {object}.
+     */
+  static serverError(res, message) {
+    return res.status(500).json({
+      status: 500,
+      message,
+      error: 'Server Error',
+    });
+  }
 }
 
 export default Response;
-

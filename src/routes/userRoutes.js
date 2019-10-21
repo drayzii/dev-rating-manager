@@ -2,9 +2,12 @@ import express from 'express';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import AuthController from '../controllers/authController';
+import UserController from '../controllers/userController';
+import Authenticate from '../middlewares/auth';
 
 const router = express.Router();
 const { loginCallback } = AuthController;
+const { updateRole } = UserController;
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
@@ -23,6 +26,7 @@ passport.use(new GoogleStrategy({
   };
   return done(null, user);
 }));
+
 router.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email'],
 }));
@@ -30,4 +34,7 @@ router.get('/auth/google', passport.authenticate('google', {
 router.get('/auth/google/redirect',
   passport.authenticate('google', { failureRedirect: '/auth/google' }),
   loginCallback);
+
+router.patch('/make-lf', Authenticate, updateRole);
+
 export default { router, passport };

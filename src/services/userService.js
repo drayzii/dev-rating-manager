@@ -20,6 +20,55 @@ class UserService {
       throw error;
     }
   }
+
+  /**
+   * Creates a new message.
+   * @param {object} param details of a message.
+   * @returns {object} users new message.
+   */
+  static async findOneUser(param) {
+    try {
+      const users = await User.findOne({
+        where: param,
+      });
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Creates a new message.
+   * @param {object} param details of a message.
+   * @returns {object} users new message.
+   */
+  static async findOrCreateUser(user) {
+    try {
+      const users = await User.findOrCreate({
+        where: { googleId: user.googleId }, defaults: user,
+      });
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Creates a new message.
+   * @param {object} param details of a message.
+   * @returns {object} users new message.
+   */
+  static async updateUser(user, param) {
+    try {
+      const users = await User.update(user, {
+        where: param,
+        returning: true,
+      });
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default UserService;

@@ -24,6 +24,13 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        validateEmail(value) {
+          if (!/^[\w.+\-]+@andela\.com$/i.test(value)) {
+            throw new Error('The email has to be a valid Andela email!');
+          }
+        },
+      },
     },
     role: {
       type: DataTypes.STRING,
