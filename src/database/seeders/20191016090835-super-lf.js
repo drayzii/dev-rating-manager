@@ -36,6 +36,15 @@ export default {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        googleId: '108282791791495231796',
+        firstName: 'Amily',
+        lastName: 'Kassim',
+        email: 'amily.kassim@andela.com',
+        role: 'LF',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
 
     ],
     {},

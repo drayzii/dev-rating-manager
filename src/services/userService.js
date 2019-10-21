@@ -1,7 +1,10 @@
 /* eslint-disable no-useless-catch */
+import Sequelize from 'sequelize';
 import database from '../database/models';
 
 const { User } = database;
+const { Op } = Sequelize;
+
 /** Class representing user services. */
 
 class UserService {
@@ -68,6 +71,17 @@ class UserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  /**
+   * @returns {*} users
+   */
+  static async getEngineersIds(lfId) {
+    const engineers = await database.Group.findAll({
+      where: { lf: lfId },
+    });
+
+    return engineers;
   }
 }
 

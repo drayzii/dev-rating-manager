@@ -1,5 +1,11 @@
+import Sequelize from 'sequelize';
 import Response from '../helpers/response';
 import UserService from '../services/userService';
+
+const { Op } = Sequelize;
+
+const { findUser, getEngineersIds } = UserService;
+
 /**
  * @class AuthController
  * @classdesc AuthController
@@ -25,6 +31,22 @@ class UserController {
       if (error.name === 'SequelizeValidationError') return Response.validationError(res, error.errors[0].message);
       return Response.serverError(res, error);
     }
+  }
+
+  static async viewAllProfiles(req, res) {
+    let engineerIds;
+    if (req.user.role !== 'LF') return Response.authorizationError(res, 'You do not have access to perform this action');
+
+    const results = await getEngineersIds(req.user.id);
+
+    // if there is engineers
+    if (results[0].dataValues.engineers.length > 0) {
+      engineerIds = results[0].dataValues.engineers;
+      const allUsers = await findUser({ id: { [Op.or]: engineerIds }, role: 'Engineer' });
+      return Response.customResponse(res, 200, 'success', allUsers);
+    }
+
+    return Response.badRequestError(res, 'No engineers found');
   }
 }
 
