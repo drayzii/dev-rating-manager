@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 import engineerService from '../services/engineerService';
 import userService from '../services/userService';
@@ -7,7 +8,9 @@ class EngineerService {
   async createOrRemove(req, res, next) {
     try {
       const { engineers } = req.body;
-      const { id } = req.user;
+      const { user } = req;
+      if (user.role !== 'LF' || user.role !== 'super LF') return Response.authorizationError(res, 'you have no rights to perform this operation');
+      const { id } = user;
       await Promise.all(
         engineers.map(async (engineerId) => {
           const engineer = await userService.find({ id: engineerId });

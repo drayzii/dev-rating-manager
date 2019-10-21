@@ -3,7 +3,8 @@
 import express from 'express';
 import groupController from '../controllers/groupController';
 import listValidator from '../validation/enginnerListValidator';
+import verify from '../middlewares/auth';
 
 const router = express.Router();
-router.patch('/', listValidator.list, groupController.createOrRemove);
+router.patch('/', verify, listValidator.list, groupController.createOrRemove);
 export default router;
