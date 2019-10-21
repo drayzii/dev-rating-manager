@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import models from '../database/models';
+import userService from '../services/userService';
+import Response from '../helpers/response';
 
 const { JWT_SECRET } = process.env;
 /**
@@ -15,12 +16,15 @@ class AuthController {
    * @returns {Object} response Object.
    */
   static async loginCallback(req, res) {
-    const [dbUser] = await models.User.findOrCreate({
-      where: { googleId: req.user.googleId }, defaults: req.user,
-    });
-    const user = dbUser.dataValues;
-    const token = jwt.sign(user, JWT_SECRET, { expiresIn: '24h' });
-    res.status(200).json({ status: res.statusCode, token, user });
+    try {
+      const [dbUser] = await userService.findOrCreateUser(req.user);
+      const user = dbUser.dataValues;
+      const token = jwt.sign(user, JWT_SECRET, { expiresIn: '24h' });
+      return Response.customResponse(res, 200, 'Successfully logged in', { token, ...user });
+    } catch (error) {
+      if (error.name === 'SequelizeValidationError') return Response.validationError(res, error.errors[0].message);
+      return Response.serverError(res, error);
+    }
   }
 }
 
