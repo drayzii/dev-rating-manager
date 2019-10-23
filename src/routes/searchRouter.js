@@ -3,11 +3,12 @@
 import express from 'express';
 import searchController from '../controllers/searchController';
 import searchValidator from '../validation/searchValidator';
-import verify from '../middlewares/auth';
+import auth from '../middlewares/auth';
+import { ratingAccess } from '../middlewares/access';
 
 const router = express.Router();
 
-router.get('/', verify, searchValidator.checkRequestParams, searchController.searchUser);
+router.get('/',auth, ratingAccess, searchValidator.checkRequestParams, searchController.searchUser);
 
 
 export default router;

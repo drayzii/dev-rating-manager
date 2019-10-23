@@ -59,7 +59,6 @@ class RatingService {
             return average;
 
         }catch(error){
-            console.log(error);
             throw error;
         }
     }
