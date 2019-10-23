@@ -1,10 +1,11 @@
+/* eslint-disable no-restricted-globals */
 import Sequelize from 'sequelize';
 import Response from '../helpers/response';
 import UserService from '../services/userService';
 
 const { Op } = Sequelize;
 
-const { findUser, getEngineersIds } = UserService;
+const { findUser, getEngineersIds, getSingleEngineer } = UserService;
 
 /**
  * @class AuthController
@@ -58,6 +59,21 @@ class UserController {
     } catch (error) {
       return next(error);
     }
+}
+
+  static async viewSingleProfile(req, res) {
+    const { id } = req.params;
+    if (isNaN(parseInt(id, 10))) Response.badRequestError(res, 'enter a valid user id');
+
+    if (req.user.role === 'Engineer' && parseInt(id, 10) !== req.user.id) {
+      return Response.authorizationError(res, 'Don\'t  have previelage to access this end point');
+    }
+
+    const user = await getSingleEngineer({ id });
+
+    if (!user) Response.notFoundError(res, 'User not found');
+
+    return Response.customResponse(res, 200, 'User found successfully', user);
   }
 }
 
