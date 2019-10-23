@@ -7,7 +7,7 @@
     "build": "rm -rf ./src/dist && babel ./src/. --out-dir ./src/dist --copy-files",
     "migrate": "sequelize db:migrate --env production",
     "migrate-dev": "sequelize db:migrate && npm run seed-dev --env development",
-    "start": "npm run migrate && npm run seed && npm run build && node ./src/dist/index.js",
+    "start": "npm run build && node ./src/dist/index.js",
     "seed": "sequelize db:seed:all --env production",
     "seed-dev": "sequelize db:seed:all --env development",
     "dev": "nodemon --exec babel-node src/index.js",
