@@ -2,7 +2,7 @@ import database from '../database/models';
 import sequelize from 'sequelize';
 import { computeAverage } from "../helpers/index";
 
-const { Rating  } = database;
+const { Rating, User  } = database;
 const { AverageRatings  } = database;
 class RatingService {
     static async createRating(rating){
@@ -55,7 +55,15 @@ class RatingService {
 
     static async getAverage(param){
         try{
-            let average = await AverageRatings.findAll({where: param});
+            let average = await AverageRatings.findAll({
+                where: param,
+                include:[
+                    {
+                        model: User,
+                        attributes:['id','firstName','lastName','email']}
+
+                ]
+            });
             return average;
 
         }catch(error){

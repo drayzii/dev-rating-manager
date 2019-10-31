@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   AverageRatings.associate = (models) => {
     // associations can be defined here
+    AverageRatings.belongsTo(models.User, {
+      foreignKey: 'user'
+    });
   };
   return AverageRatings;
 };
