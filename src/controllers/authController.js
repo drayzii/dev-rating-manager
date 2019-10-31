@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 import userService from '../services/userService';
-import Response from '../helpers/response';
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET, FRONTEND_URL } = process.env;
 /**
  * @class AuthController
  * @classdesc AuthController
@@ -20,10 +19,33 @@ class AuthController {
       const [dbUser] = await userService.findOrCreateUser(req.user);
       const user = dbUser.dataValues;
       const token = jwt.sign(user, JWT_SECRET, { expiresIn: '24h' });
-      return Response.customResponse(res, 200, 'Successfully logged in', { token, ...user });
+      const apiResponse = {
+        status: 200,
+        message: 'Successfully logged in',
+        data: { token },
+      };
+      const responseBuffer = Buffer.from(JSON.stringify(apiResponse));
+      return res.redirect(`${FRONTEND_URL}/login?code=${responseBuffer.toString('base64')}`);
+      // return Response.customResponse(res, 200, 'Successfully logged in', { token, ...user });
     } catch (error) {
-      if (error.name === 'SequelizeValidationError') return Response.validationError(res, error.errors[0].message);
-      return Response.serverError(res, error);
+      if (error.name === 'SequelizeValidationError') {
+        // return Response.validationError(res, error.errors[0].message);
+        const apiResponse = {
+          status: 422,
+          message: error.errors[0].message,
+          error: 'Validation Error',
+        };
+        const responseBuffer = Buffer.from(JSON.stringify(apiResponse));
+        return res.redirect(`${FRONTEND_URL}/login?code=${responseBuffer.toString('base64')}`);
+      }
+      // return Response.serverError(res, error);
+      const apiResponse = {
+        status: 500,
+        message: error,
+        error: 'Server Error',
+      };
+      const responseBuffer = Buffer.from(JSON.stringify(apiResponse));
+      return res.redirect(`${FRONTEND_URL}/login?code=${responseBuffer.toString('base64')}`);
     }
   }
 }
