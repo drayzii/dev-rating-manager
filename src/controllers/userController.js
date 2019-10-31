@@ -48,6 +48,17 @@ class UserController {
 
     return Response.badRequestError(res, 'No engineers found');
   }
+
+  static async getAllUsers(req, res, next) {
+    try {
+      if (req.user.role === 'Engineer') return Response.authorizationError(res, 'You do not have access to perform this action');
+      // if there is engineers
+      const results = await UserService.findUser({});
+      return Response.customResponse(res, 200, 'success', results);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default UserController;
