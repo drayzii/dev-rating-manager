@@ -55,10 +55,19 @@ class RatingService {
 
     static async getAverage(param){
         try{
-            let average = await AverageRatings.findAll({where: param});
+            let average = await AverageRatings.findAll({
+                where: param,
+                include:[
+                    {
+                        model: User,
+                        attributes:['id','firstName','lastName','email']}
+
+                ]
+            });
             return average;
 
         }catch(error){
+            console.log(error);
             throw error;
         }
     }
