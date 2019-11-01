@@ -59,7 +59,7 @@ class UserController {
     } catch (error) {
       return next(error);
     }
-}
+  }
 
   static async viewSingleProfile(req, res) {
     const { id } = req.params;
@@ -74,6 +74,12 @@ class UserController {
     if (!user) Response.notFoundError(res, 'User not found');
 
     return Response.customResponse(res, 200, 'User found successfully', user);
+  }
+
+  static async getMyProfile(req, res) {
+    const user = await getSingleEngineer({ id: req.user.id });
+    if (!user) Response.notFoundError(res, 'User not found');
+    return Response.customResponse(res, 200, 'Profile retrieved successfully', user);
   }
 }
 

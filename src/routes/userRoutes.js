@@ -5,7 +5,9 @@ import AuthController from '../controllers/authController';
 import UserController from '../controllers/userController';
 import Authenticate from '../middlewares/auth';
 
-const { viewAllProfiles, getAllUsers, viewSingleProfile } = UserController;
+const {
+  viewAllProfiles, getAllUsers, viewSingleProfile, getMyProfile,
+} = UserController;
 
 const router = express.Router();
 const { loginCallback } = AuthController;
@@ -41,6 +43,7 @@ router.patch('/make-lf', Authenticate, updateRole);
 
 router.get('/all', Authenticate, getAllUsers);
 router.get('/', Authenticate, viewAllProfiles);
+router.get('/my-profile', Authenticate, getMyProfile);
 router.get('/:id', Authenticate, viewSingleProfile);
 
 export default { router, passport };
