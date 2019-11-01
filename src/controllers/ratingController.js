@@ -1,5 +1,6 @@
 import Response from '../helpers/response';
 import RatingService from '../services/ratingService';
+import UserServices from '../services/userService';
 
 import { computeAverage } from "../helpers/index";
 class RatingController {
@@ -46,6 +47,10 @@ class RatingController {
         try {
             const id = req.params.id
 
+            //Check if Correct User Id Passed 
+            let user = await UserServices.findOneUser({id});
+
+            if(!user || user.role !== 'Engineer') return Response.notFoundError(res, 'Invalid engineer Id passed')
             //Get All ratings 
             let ratings = await RatingService.getRatings({ user: id });
 

@@ -26,10 +26,8 @@ class AuthController {
       };
       const responseBuffer = Buffer.from(JSON.stringify(apiResponse));
       return res.redirect(`${FRONTEND_URL}/login?code=${responseBuffer.toString('base64')}`);
-      // return Response.customResponse(res, 200, 'Successfully logged in', { token, ...user });
     } catch (error) {
       if (error.name === 'SequelizeValidationError') {
-        // return Response.validationError(res, error.errors[0].message);
         const apiResponse = {
           status: 422,
           message: error.errors[0].message,

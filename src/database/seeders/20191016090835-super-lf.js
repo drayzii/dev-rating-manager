@@ -37,14 +37,6 @@ export default {
         updatedAt: new Date(),
       },
       {
-        firstName: 'Wiliam',
-        lastName: 'Vedastus',
-        email: 'willy@gmail.com',
-        role: 'Engineer',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
         googleId: '108282791791495231796',
         firstName: 'Amily',
         lastName: 'Kassim',

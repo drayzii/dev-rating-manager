@@ -9,7 +9,6 @@ const router = express.Router();
 router.use('/search', searchRouter);
 router.use('/users', userRouter.router);
 router.use('/ratings', ratingRouter);
-router.use('/users', userRouter.router);
 router.use('/group', groupRouter);
 
 export default router;
